@@ -7,7 +7,9 @@
 * todo
 
 ## とりあえず動かしてみる
-* todo
+1. `git clone https://github.com/Rouden/XUnitPattern.git`
+2. `cd .\XUnitPattern\UnitTest\`
+3. `dotnet test`
 
 ## プロジェクトに組み込む
 1. このリポジトリの UnitTest フォルダをコピーして配置する
