@@ -26,24 +26,24 @@ namespace XUnitPattern
         {
             // タイプミス / スペルミス辞書 
             // Add(誤, 正) で追加していく
-            var typoDictionary = new Dictionary<string, string>();
-            typoDictionary.Add("auguast", "august");
+            var typoDictionary = new Dictionary<Regex, string>();
+            var failedList = new List<string>();
+            typoDictionary.Add(new Regex("auguast", RegexOptions.IgnoreCase), "august");
 
             var paths = new List<string>();
-            foreach (var path in await Utils.GetVersionedFiles(new string[] { ".cs", ".cpp", ".h" }))
+            foreach (var path in await Utils.GetVersionedFiles(Utils.textExts))
             {
 
                 // 例外
-                if (path.EndsWith("TypoChecker.cs")) continue; // このファイル
+                //if (path.EndsWith("TypoChecker.cs")) continue; // このファイル
 
                 var text = File.ReadAllText(path);
-                foreach (var typoElement in typoDictionary.Keys)
+                foreach (var reg in typoDictionary.Keys)
                 {
-                    Assert.True(-1 == text.IndexOf(typoElement), $"タイプミスが見つかりました。\nfile: {Path.GetFileName(path)}\n誤: {typoElement}\n正: {typoDictionary[typoElement]}\npath: {path}");
+                    failedList.Add($"誤: {text.ToString()}\n正: {typoDictionary[reg]}\npath: {path}");
                 }
             }
-            // 一括でエラーを出せるように
-            // typoを正規表現に
+            Assert.True(0 != failedList.Count(), $"タイプミスが見つかりました。\n{String.Join("\n----\n", failedList)}");
         }
     }
 }

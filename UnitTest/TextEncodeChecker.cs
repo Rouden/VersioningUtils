@@ -25,7 +25,8 @@ namespace XUnitPattern
         [Fact]
         public async Task useUTF8()
         {
-            var files = await Utils.GetVersionedFiles(new string[] { ".cs", ".h", ".cpp", ".md", ".puml" });
+            var files = await Utils.GetVersionedFiles(Utils.textExts);
+            var failedFiles = new List<string>();
             foreach (var path in files)
             {
                 // 例外
@@ -38,9 +39,10 @@ namespace XUnitPattern
                 }
                 else
                 {
-                    Assert.True(false, $"UTF-8 でないか、BOMで始まらないファイルが見つかりました。非日本語環境でビルドに成功させるために、ソースコードはBOM付きUTF-8で保存してください。\npath={path}");
+                    failedFiles.Add(path);
                 }
             }
+            Assert.True(0 == failedFiles.Count(), $"UTF-8 でないか、BOMで始まらないファイルが見つかりました。非日本語環境でビルドに成功させるために、ソースコードはBOM付きUTF-8で保存してください。\n{String.Join("\n", failedFiles)}");
         }
     }
 }

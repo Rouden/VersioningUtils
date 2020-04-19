@@ -10,7 +10,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Text;
 
-// リポジトリルートにあるはずのファイルを確認する
+// ルートにあるはずのファイルを確認する
 namespace XUnitPattern
 {
     public class BasicFilesChecker
@@ -21,6 +21,7 @@ namespace XUnitPattern
             output = helper;
         }
 
+        // README.md の存在確認
         [Fact]
         public async Task HasReadme()
         {
@@ -28,6 +29,7 @@ namespace XUnitPattern
             Assert.True(File.Exists(@$"{path}/README.md"));
         }
 
+        // LICENSE.txt の存在確認
         [Fact]
         public async Task HasLicense()
         {
@@ -35,6 +37,7 @@ namespace XUnitPattern
             Assert.True(File.Exists(@$"{path}/LICENSE.txt"));
         }
 
+        // .gitignore の存在確認
         [Fact]
         public async Task HasGitignore()
         {
@@ -42,6 +45,7 @@ namespace XUnitPattern
             Assert.True(File.Exists(@$"{path}/.gitignore"));
         }
 
+        // .editorconfig の存在確認
         [Fact]
         public async Task HasEditorconfig()
         {

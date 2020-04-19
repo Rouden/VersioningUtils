@@ -10,6 +10,7 @@ namespace XUnitPattern
 {
     internal static class Utils
     {
+        // リポジトリのルートディレクトリを得る
         internal static async Task<string> GetRepositoryRoot()
         {
             // git rev-parse --show-toplevel コマンドでルートディレクトリを取得する
@@ -48,5 +49,13 @@ namespace XUnitPattern
             var list = await GetVersionedFiles();
             return list.Where(v => exts.Contains(Path.GetExtension(v))).ToArray();
         }
+
+        // 拡張子のまとめ
+        internal static string[] cppExts = new string[] { ".h", ".hpp", ".c", ".cpp" };
+        internal static string[] csExts = new string[] { ".cs" };
+        internal static string[] jsExts = new string[] { ".js", ".ts", ".jsx", ".tsx" };
+        internal static string[] webExts = jsExts.Union(new string[] { ".htm", ".html", ".css" }).ToArray();
+        internal static string[] generalExts = new string[] {".md", ".txt", ".xml"};
+        internal static string[] textExts = cppExts.Union(cppExts).Union(csExts).Union(webExts).Union(generalExts).ToArray();
     }
 }
