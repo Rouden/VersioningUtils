@@ -53,8 +53,8 @@ namespace XUnitPattern
         // 拡張子のまとめ
         internal static string[] cppExts = new string[] { ".h", ".hpp", ".c", ".cpp" };
         internal static string[] csExts = new string[] { ".cs" };
-        internal static string[] jsExts = new string[] { ".js", ".ts", ".jsx", ".tsx" };
-        internal static string[] webExts = jsExts.Union(new string[] { ".htm", ".html", ".css" }).ToArray();
+        internal static string[] jstsExts = new string[] { ".js", ".ts", ".jsx", ".tsx" };
+        internal static string[] webExts = jstsExts.Union(new string[] { ".htm", ".html", ".css" }).ToArray();
         internal static string[] generalExts = new string[] {".md", ".txt", ".xml"};
         internal static string[] textExts = cppExts.Union(cppExts).Union(csExts).Union(webExts).Union(generalExts).ToArray();
     }
