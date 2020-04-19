@@ -29,7 +29,7 @@ namespace XUnitPattern
             foreach (var path in files)
             {
                 // 例外
-                //if (path.Contains("something")) continue;
+                if (path.Contains("DefaultDesktopOnlyChecker.cs")) continue; // このファイルを除外
 
                 var text = File.ReadAllText(path, Encoding.UTF8);
                 if (reg.IsMatch(text))
@@ -49,7 +49,7 @@ namespace XUnitPattern
             foreach (var path in files)
             {
                 // 例外
-                //if (path.Contains("something")) continue;
+                if (path.Contains("DefaultDesktopOnlyChecker.cs")) continue; // このファイルを除外
 
                 var text = File.ReadAllText(path, Encoding.UTF8);
                 if (reg.IsMatch(text))
