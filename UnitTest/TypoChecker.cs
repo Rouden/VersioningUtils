@@ -35,15 +35,19 @@ namespace XUnitPattern
             {
 
                 // 例外
-                //if (path.EndsWith("TypoChecker.cs")) continue; // このファイル
+                if (path.EndsWith("TypoChecker.cs")) continue; // このファイル
 
                 var text = File.ReadAllText(path);
-                foreach (var reg in typoDictionary.Keys)
+                foreach (var pair in typoDictionary)
                 {
-                    failedList.Add($"誤: {text.ToString()}\n正: {typoDictionary[reg]}\npath: {path}");
+                    var match = pair.Key.Match(text);
+                    if (match.Success)
+                    {
+                        failedList.Add($"誤: {match.Value}\n正: {pair.Value}\npath: {path}");
+                    }
                 }
             }
-            Assert.True(0 != failedList.Count(), $"タイプミスが見つかりました。\n{String.Join("\n----\n", failedList)}");
+            Assert.True(0 == failedList.Count(), $"タイプミスが見つかりました。\n{String.Join("\n----\n", failedList)}");
         }
     }
 }
