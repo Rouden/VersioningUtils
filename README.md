@@ -37,6 +37,5 @@
     * GitHub actions (Ubuntu-latest)  
 
 ## Todo list
-* svn リポジトリでも正しく動作するように
 * gitコマンドが利用できない場合(例: GitHub Desktop だけインストールしたような環境)でも、それなりに動くように
 * バージョン管理可のプロジェクトファイルの設定確認
