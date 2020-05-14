@@ -5,20 +5,43 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Text;
+using System.Threading;
 
 namespace XUnitPattern
 {
     internal static class Utils
     {
+        static private string cacheRepositoryRoot = "";
+        static private SemaphoreSlim cacheRepositoryRootSemaphore = new SemaphoreSlim(1, 1);
+
+
         // リポジトリのルートディレクトリを得る
         internal static async Task<string> GetRepositoryRoot()
         {
-            string? path;
-            path = await GetGitRepositoryRoot();
-            if (path != null) return path;
-            path = await GetSvnRepositoryRoot();
-            if (path != null) return path;
-            throw new Exception("The root directory not found.");
+            await cacheRepositoryRootSemaphore.WaitAsync();
+            try
+            {
+                if (cacheRepositoryRoot != "") return cacheRepositoryRoot;
+
+                string? path;
+                path = await GetGitRepositoryRoot();
+                if (path != null)
+                {
+                    cacheRepositoryRoot = path;
+                    return path;
+                }
+                path = await GetSvnRepositoryRoot();
+                if (path != null)
+                {
+                    cacheRepositoryRoot = path;
+                    return path;
+                }
+                throw new Exception("The root directory not found.");
+            }
+            finally
+            {
+                cacheRepositoryRootSemaphore.Release();
+            }
         }
 
         private static async Task<string?> GetGitRepositoryRoot()
@@ -73,17 +96,38 @@ namespace XUnitPattern
             }
         }
 
+        static private string[] cacheVersionnedFiles = { };
+        static private SemaphoreSlim cacheVersionnedFilesSemaphore = new SemaphoreSlim(1, 1);
+
         // バージョン管理されたファイルの一覧をフルパスで返す
         // svn はディレクトリをバージョン管理できるが、ディレクトリのパスは戻り値に含めない.
         internal static async Task<string[]> GetVersionedFiles()
         {
-            string[]? files;
-            files = await GetGitVersionedFiles();
-            if (files != null) return files;
-            files = await GetSvnVersionedFiles();
-            if (files != null) return files;
+            await cacheVersionnedFilesSemaphore.WaitAsync();
+            try
+            {
+                if (cacheVersionnedFiles.Length != 0) return cacheVersionnedFiles;
 
-            throw new Exception("Failed to get versioned files.");
+                string[]? files;
+                files = await GetGitVersionedFiles();
+                if (files != null)
+                {
+                    cacheVersionnedFiles = files;
+                    return files;
+                }
+                files = await GetSvnVersionedFiles();
+                if (files != null)
+                {
+                    cacheVersionnedFiles = files;
+                    return files;
+                }
+
+                throw new Exception("Failed to get versioned files.");
+            }
+            finally
+            {
+                cacheVersionnedFilesSemaphore.Release();
+            }
         }
 
         private static async Task<string[]?> GetGitVersionedFiles()
