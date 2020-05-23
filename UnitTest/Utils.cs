@@ -73,9 +73,11 @@ namespace XUnitPattern
             // svn info --show-item wc-root コマンドでルートディレクトリを取得する
             // svn は WorkingDirectory がバージョン管理外のときにパスを取得できないので、ディレクトリを順にさかのぼって取得できるまで試行する.
             string workingDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly()!.Location)!;
+            string? svnPath = GetSvnPath();
+            if (svnPath == null) return null;
             while (true)
             {
-                var psi = new ProcessStartInfo("svn", "info --show-item wc-root");
+                var psi = new ProcessStartInfo(svnPath, "info --show-item wc-root");
                 psi.StandardOutputEncoding = Encoding.UTF8;
                 psi.WorkingDirectory = workingDirectory;
                 psi.UseShellExecute = false;
@@ -113,6 +115,23 @@ namespace XUnitPattern
                 {
                     return $@"{dir}/cmd/git.exe";
                 }
+                return null;
+            }
+
+        }
+
+        private static string? GetSvnPath()
+        {
+            try
+            {
+                using var p = Process.Start("svn", "--version");
+                p.WaitForExit();
+                return "svn";
+            }
+            catch
+            {
+                // TortoiseSVN は path を通すインストールオプションを無効にすると、svn.exe 自体が配置されない
+                // svnコマンドが無効の場合は、環境に svn.exe がない
                 return null;
             }
 
@@ -177,7 +196,9 @@ namespace XUnitPattern
         {
             // svn list -R コマンドでファイルの一覧を取得する
             var root = await GetRepositoryRoot();
-            var psi = new ProcessStartInfo("svn", "list -R");
+            string? svnPath = GetSvnPath();
+            if (svnPath == null) return null;
+            var psi = new ProcessStartInfo(svnPath, "list -R");
             psi.StandardOutputEncoding = Encoding.UTF8;
             psi.WorkingDirectory = root;
             psi.UseShellExecute = false;
