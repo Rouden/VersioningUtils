@@ -55,7 +55,7 @@ namespace XUnitPattern
             psi.WorkingDirectory = workingDirectory;
             psi.UseShellExecute = false;
             psi.RedirectStandardOutput = true;
-            var p = Process.Start(psi);
+            using var p = Process.Start(psi);
             string output = await p.StandardOutput.ReadToEndAsync();
             p.WaitForExit();
             if (p.ExitCode == 0)
@@ -80,7 +80,7 @@ namespace XUnitPattern
                 psi.WorkingDirectory = workingDirectory;
                 psi.UseShellExecute = false;
                 psi.RedirectStandardOutput = true;
-                var p = Process.Start(psi);
+                using var p = Process.Start(psi);
                 string output = await p.StandardOutput.ReadToEndAsync();
                 p.WaitForExit();
                 if (p.ExitCode == 0)
@@ -100,21 +100,22 @@ namespace XUnitPattern
 
         private static string? GetGitPath()
         {
-            var p = Process.Start("git", "--version");
-            p.WaitForExit();
-            if (p.ExitCode == 0)
+            try
             {
+                using var p = Process.Start("git", "--version");
+                p.WaitForExit();
                 return "git";
             }
-            else
+            catch
             {
                 string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 foreach (var dir in Directory.GetDirectories($@"{localAppData}/GitHub", "PortableGit_*"))
                 {
                     return $@"{dir}/cmd/git.exe";
                 }
+                return null;
             }
-            return null;
+
         }
 
         static private string[] cacheVersionnedFiles = { };
@@ -162,7 +163,7 @@ namespace XUnitPattern
             psi.WorkingDirectory = root;
             psi.UseShellExecute = false;
             psi.RedirectStandardOutput = true;
-            var p = Process.Start(psi);
+            using var p = Process.Start(psi);
             string output = await p.StandardOutput.ReadToEndAsync();
             p.WaitForExit();
             if (p.ExitCode != 0) return null;
@@ -181,7 +182,7 @@ namespace XUnitPattern
             psi.WorkingDirectory = root;
             psi.UseShellExecute = false;
             psi.RedirectStandardOutput = true;
-            var p = Process.Start(psi);
+            using var p = Process.Start(psi);
             string output = await p.StandardOutput.ReadToEndAsync();
             p.WaitForExit();
             if (p.ExitCode != 0) return null;
