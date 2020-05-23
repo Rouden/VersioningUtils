@@ -100,7 +100,7 @@ namespace XUnitPattern
 
         private static string? GetGitPath()
         {
-            var p = Process.Start("where", "git");
+            var p = Process.Start("git", "--version");
             p.WaitForExit();
             if (p.ExitCode == 0)
             {
