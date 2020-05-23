@@ -48,7 +48,9 @@ namespace XUnitPattern
         {
             // git rev-parse --show-toplevel コマンドでルートディレクトリを取得する
             string workingDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly()!.Location)!;
-            var psi = new ProcessStartInfo("git", "rev-parse --show-toplevel");
+            string? gitPath = GetGitPath();
+            if (gitPath == null) return null;
+            var psi = new ProcessStartInfo(gitPath, "rev-parse --show-toplevel");
             psi.StandardOutputEncoding = Encoding.UTF8;
             psi.WorkingDirectory = workingDirectory;
             psi.UseShellExecute = false;
@@ -96,6 +98,25 @@ namespace XUnitPattern
             }
         }
 
+        private static string? GetGitPath()
+        {
+            var p = Process.Start("where", "git");
+            p.WaitForExit();
+            if (p.ExitCode == 0)
+            {
+                return "git";
+            }
+            else
+            {
+                string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                foreach (var dir in Directory.GetDirectories($@"{localAppData}/GitHub", "PortableGit_*"))
+                {
+                    return $@"{dir}/cmd/git.exe";
+                }
+            }
+            return null;
+        }
+
         static private string[] cacheVersionnedFiles = { };
         static private SemaphoreSlim cacheVersionnedFilesSemaphore = new SemaphoreSlim(1, 1);
 
@@ -134,7 +155,9 @@ namespace XUnitPattern
         {
             // git ls-files コマンドでファイルの一覧を取得する
             var root = await GetRepositoryRoot();
-            var psi = new ProcessStartInfo("git", "ls-files -z");
+            string? gitPath = GetGitPath();
+            if (gitPath == null) return null;
+            var psi = new ProcessStartInfo(gitPath, "ls-files -z");
             psi.StandardOutputEncoding = Encoding.UTF8;
             psi.WorkingDirectory = root;
             psi.UseShellExecute = false;
