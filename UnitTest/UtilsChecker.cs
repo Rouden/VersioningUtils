@@ -40,6 +40,10 @@ namespace XUnitPattern
             var paths = await Utils.GetVersionedFiles();
             output.WriteLine(String.Join("\n", paths));
 
+            foreach(var path in paths)
+            {
+                Assert.True(File.Exists(path), $"Listed file does not exist.\npath = {path}");
+            }
 
             Assert.True(1 <= paths.Where(text => text.EndsWith("README.md")).Count(), "README.md not found.");
         }
@@ -51,6 +55,11 @@ namespace XUnitPattern
             var paths = await Utils.GetVersionedFiles(new string[] { ".md" });
 
             output.WriteLine(String.Join("\n", paths));
+
+            foreach (var path in paths)
+            {
+                Assert.True(File.Exists(path), $"Listed file does not exist.\npath = {path}");
+            }
 
             Assert.True(1 <= paths.Where(text => text.EndsWith("README.md")).Count(), "README.md not found.");
             Assert.True(0 == paths.Where(text => text.EndsWith(".gitignore")).Count(), "extension is not filtered detected.");
