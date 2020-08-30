@@ -38,9 +38,11 @@
         * GitHub actions (Ubuntu-latest)  
 * 対応バージョン管理システム
     * git
-        * [GitHub Desktop](https://desktop.github.com/) のみインストールされた環境を含む
+        * git コマンドが利用可能な環境、もしくは [GitHub Desktop](https://desktop.github.com/) のみインストールされた環境
     * svn
-        * インストールオプションで "command line client tools" が選択されているときのみ
+        * svn コマンドが利用可能な環境
+            * TortoiseSVN では、インストールオプションで "command line client tools" が選択されているときに相当
+        * svnのみ、パスが非ASCII文字を含んでいるとテスト対象になりません
 
 ## Todo list
 * バージョン管理下のプロジェクトファイルの設定確認

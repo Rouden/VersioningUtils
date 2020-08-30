@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Text;
 using System.Threading;
+using Xunit.Abstractions;
 
 namespace XUnitPattern
 {
@@ -13,7 +14,6 @@ namespace XUnitPattern
     {
         static private string cacheRepositoryRoot = "";
         static private SemaphoreSlim cacheRepositoryRootSemaphore = new SemaphoreSlim(1, 1);
-
 
         // リポジトリのルートディレクトリを得る
         internal static async Task<string> GetRepositoryRoot()
@@ -199,7 +199,7 @@ namespace XUnitPattern
             string? svnPath = GetSvnPath();
             if (svnPath == null) return null;
             var psi = new ProcessStartInfo(svnPath, "list -R");
-            psi.StandardOutputEncoding = Encoding.UTF8;
+            psi.StandardOutputEncoding = Encoding.ASCII;
             psi.WorkingDirectory = root;
             psi.UseShellExecute = false;
             psi.RedirectStandardOutput = true;
@@ -210,7 +210,11 @@ namespace XUnitPattern
 
             // 一覧をフルパスの配列にして返す
             var files = output.Split("\r\n");
-            return files.Select(v => $"{root}/{v}").Where(v=>!v.EndsWith("/")).ToArray();
+            return files
+                .Select(v => $"{root}/{v}")
+                .Where(v=>!v.EndsWith("/"))
+                .Where(v => File.Exists(v)) // 非ASCII 文字を含むパスを取り除く
+                .ToArray();
         }
 
         // バージョン管理されたファイルで、指定の拡張子のファイルの一覧をフルパスで返す
