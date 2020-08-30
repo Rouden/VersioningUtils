@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
-using System.Reflection;
 using Xunit;
 using Xunit.Abstractions;
-using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Text;
 
 // このファイルは XUnitPattern が内部で利用する関数の動作確認用です。
 namespace XUnitPattern
