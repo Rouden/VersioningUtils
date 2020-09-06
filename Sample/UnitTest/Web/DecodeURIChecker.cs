@@ -7,8 +7,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Text;
+using Versioning.Utlis;
 
-namespace XUnitPattern
+namespace VersioningUtilsSample
 {
     public class DecodeUriChecker
     {
@@ -22,7 +23,7 @@ namespace XUnitPattern
         [Fact]
         public async Task UseDecodeUri()
         {
-            var files = await Utils.GetVersionedFiles(Utils.jstsExts);
+            var files = await VersioningUtils.GetVersionedFiles(UtilsChecker.jstsExts);
             var reg = new Regex(@"decodeURI", RegexOptions.IgnoreCase);
             var failedList = new List<string>();
             foreach (var path in files)

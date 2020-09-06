@@ -7,8 +7,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Text;
+using Versioning.Utlis;
 
-namespace XUnitPattern
+namespace VersioningUtilsSample
 {
     public class VarChecker
     {
@@ -22,7 +23,7 @@ namespace XUnitPattern
         [Fact]
         public async Task UseOfVar()
         {
-            var files = await Utils.GetVersionedFiles(new string[] { ".ts", ".tsx" });
+            var files = await VersioningUtils.GetVersionedFiles(new string[] { ".ts", ".tsx" });
             var reg = new Regex(@"[\(\s^{]+var\s+");
             var failedList = new List<string>();
             foreach (var path in files)

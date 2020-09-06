@@ -7,8 +7,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Text;
+using Versioning.Utlis;
 
-namespace XUnitPattern
+namespace VersioningUtilsSample
 {
     public class DefaultDesktopOnlyChecker
     {
@@ -23,7 +24,7 @@ namespace XUnitPattern
         [Fact]
         public async Task UseDefaultDesktopOnly()
         {
-            var files = await Utils.GetVersionedFiles(new string[] { ".cs" });
+            var files = await VersioningUtils.GetVersionedFiles(new string[] { ".cs" });
             var reg = new Regex(@"MessageBoxOptions\.DefaultDesktopOnly");
             var failedList = new List<string>();
             foreach (var path in files)
@@ -43,7 +44,7 @@ namespace XUnitPattern
         [Fact]
         public async Task UseServiceNotification()
         {
-            var files = await Utils.GetVersionedFiles(new string[] { ".cs" });
+            var files = await VersioningUtils.GetVersionedFiles(new string[] { ".cs" });
             var reg = new Regex(@"MessageBoxOptions\.ServiceNotification");
             var failedList = new List<string>();
             foreach (var path in files)

@@ -7,23 +7,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Text;
+using Versioning.Utlis;
 
-namespace XUnitPattern
+namespace VersioningUtilsSample
 {
-    public class BindChecker
+    public class NullChecker
     {
         private readonly ITestOutputHelper output;
-        public BindChecker(ITestOutputHelper helper)
+        public NullChecker(ITestOutputHelper helper)
         {
             output = helper;
         }
 
-        // bind 関数によるスコープを
+        // JavaScript や TypeScript では null ではなく undefined を使う
         [Fact]
-        public async Task UseOfBind()
+        public async Task UseOfNull()
         {
-            var files = await Utils.GetVersionedFiles(Utils.jstsExts);
-            var reg = new Regex(@"\.bind\(");
+            var files = await VersioningUtils.GetVersionedFiles(UtilsChecker.jstsExts);
+            var reg = new Regex(@"null");
             var failedList = new List<string>();
             foreach (var path in files)
             {
@@ -36,7 +37,7 @@ namespace XUnitPattern
                     failedList.Add(path);
                 }
             }
-            Assert.True(0 == failedList.Count(), $"\n{String.Join('\n', failedList)}");
+            Assert.True(0 == failedList.Count(), $"JavaScript や TypeScript では、混乱を避けるために null の代わりに undefined を使用してください。\n{String.Join('\n', failedList)}");
         }
     }
 }

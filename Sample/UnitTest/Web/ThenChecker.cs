@@ -7,23 +7,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Text;
+using Versioning.Utlis;
 
-namespace XUnitPattern
+namespace VersioningUtilsSample
 {
-    public class NullChecker
+    public class ThenChecker
     {
         private readonly ITestOutputHelper output;
-        public NullChecker(ITestOutputHelper helper)
+        public ThenChecker(ITestOutputHelper helper)
         {
             output = helper;
         }
 
-        // JavaScript や TypeScript では null ではなく undefined を使う
+        // 非同期処理は then関数, catch関数の代わりに、async, await (と try..catch...) を使う
         [Fact]
-        public async Task UseOfNull()
+        public async Task UseOfThen()
         {
-            var files = await Utils.GetVersionedFiles(Utils.jstsExts);
-            var reg = new Regex(@"null");
+            var files = await VersioningUtils.GetVersionedFiles(UtilsChecker.jstsExts);
+            var reg = new Regex(@"\.then\(");
             var failedList = new List<string>();
             foreach (var path in files)
             {
@@ -36,7 +37,7 @@ namespace XUnitPattern
                     failedList.Add(path);
                 }
             }
-            Assert.True(0 == failedList.Count(), $"JavaScript や TypeScript では、混乱を避けるために null の代わりに undefined を使用してください。\n{String.Join('\n', failedList)}");
+            Assert.True(0 == failedList.Count(), $"非同期処理は then関数, catch関数の代わりに、async, await (と try..catch...) を使用してください。\n{String.Join('\n', failedList)}");
         }
     }
 }

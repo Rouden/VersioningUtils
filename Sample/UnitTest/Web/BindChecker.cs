@@ -7,23 +7,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Text;
+using Versioning.Utlis;
 
-namespace XUnitPattern
+namespace VersioningUtilsSample
 {
-    public class ThenChecker
+    public class BindChecker
     {
         private readonly ITestOutputHelper output;
-        public ThenChecker(ITestOutputHelper helper)
+        public BindChecker(ITestOutputHelper helper)
         {
             output = helper;
         }
 
-        // 非同期処理は then関数, catch関数の代わりに、async, await (と try..catch...) を使う
+        // bind 関数によるスコープを
         [Fact]
-        public async Task UseOfThen()
+        public async Task UseOfBind()
         {
-            var files = await Utils.GetVersionedFiles(Utils.jstsExts);
-            var reg = new Regex(@"\.then\(");
+            var files = await VersioningUtils.GetVersionedFiles(UtilsChecker.jstsExts);
+            var reg = new Regex(@"\.bind\(");
             var failedList = new List<string>();
             foreach (var path in files)
             {
@@ -36,7 +37,7 @@ namespace XUnitPattern
                     failedList.Add(path);
                 }
             }
-            Assert.True(0 == failedList.Count(), $"非同期処理は then関数, catch関数の代わりに、async, await (と try..catch...) を使用してください。\n{String.Join('\n', failedList)}");
+            Assert.True(0 == failedList.Count(), $"\n{String.Join('\n', failedList)}");
         }
     }
 }

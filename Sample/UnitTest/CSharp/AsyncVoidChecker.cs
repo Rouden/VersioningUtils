@@ -7,8 +7,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Text;
+using Versioning.Utlis;
 
-namespace XUnitPattern
+namespace VersioningUtilsSample
 {
     public class CodeChecker
     {
@@ -28,7 +29,7 @@ namespace XUnitPattern
                 "OnInspectorGUI", // Unity エディタ拡張
             };
 
-            var files = await Utils.GetVersionedFiles(new string[] { ".cs" });
+            var files = await VersioningUtils.GetVersionedFiles(new string[] { ".cs" });
             var reg = new Regex($@"\s+async\s+void\s+(?!{String.Join('|', extFunctions)})");
             var failedList = new List<string>();
             foreach (var path in files)

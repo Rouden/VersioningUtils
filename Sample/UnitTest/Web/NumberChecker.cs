@@ -7,23 +7,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Text;
+using Versioning.Utlis;
 
-namespace XUnitPattern
+namespace VersioningUtilsSample
 {
-    public class DoctypeChecker
+    public class NumberChecker
     {
         private readonly ITestOutputHelper output;
-        public DoctypeChecker(ITestOutputHelper helper)
+        public NumberChecker(ITestOutputHelper helper)
         {
             output = helper;
         }
 
-        // 文書型宣言が HTML5 のものであることを確認する
+        // 通常は Number 関数より parseInt か parseFloat の方が可読性が良い
         [Fact]
-        public async Task UseHtml5Doctype()
+        public async Task UseOfNumber()
         {
-            var files = await Utils.GetVersionedFiles(new string[] { ".htm", ".html" });
-            var reg = new Regex(@"^<!DOCTYPE html>", RegexOptions.IgnoreCase);
+            var files = await VersioningUtils.GetVersionedFiles(UtilsChecker.jstsExts);
+            var reg = new Regex(@"Number\(");
             var failedList = new List<string>();
             foreach (var path in files)
             {
@@ -31,12 +32,12 @@ namespace XUnitPattern
                 //if (path.Contains("something")) continue;
 
                 var text = File.ReadAllText(path, Encoding.UTF8);
-                if (!reg.IsMatch(text))
+                if (reg.IsMatch(text))
                 {
                     failedList.Add(path);
                 }
             }
-            Assert.True(0 == failedList.Count(), $"文書型宣言がHTML5のものでない .htm ファイルが見つかりました。HTMLではファイルの先頭に「<!DOCTYPE html>」を指定してください。\n{String.Join('\n', failedList)}");
+            Assert.True(0 == failedList.Count(), $"可読性のため Number 関数の代わりに、parseInt か parseFloat の使用を検討してください。\n{String.Join('\n', failedList)}");
         }
     }
 }
