@@ -1,17 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using System.Reflection;
+﻿using System.IO;
 using Xunit;
 using Xunit.Abstractions;
-using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Text;
+using Versioning.Utlis;
 
 // ルートにあるはずのファイルを確認する
-namespace XUnitPattern
+namespace VersioningUtilsSample
 {
     public class BasicFilesChecker
     {
@@ -25,7 +19,7 @@ namespace XUnitPattern
         [Fact]
         public async Task HasReadme()
         {
-            var path = await Utils.GetRepositoryRoot();
+            var path = await VersioningUtils.GetRepositoryRoot();
             Assert.True(File.Exists(@$"{path}/README.md"));
         }
 
@@ -33,7 +27,7 @@ namespace XUnitPattern
         [Fact]
         public async Task HasLicense()
         {
-            var path = await Utils.GetRepositoryRoot();
+            var path = await VersioningUtils.GetRepositoryRoot();
             Assert.True(File.Exists(@$"{path}/LICENSE.txt"));
         }
 
@@ -41,7 +35,7 @@ namespace XUnitPattern
         [Fact]
         public async Task HasGitignore()
         {
-            var path = await Utils.GetRepositoryRoot();
+            var path = await VersioningUtils.GetRepositoryRoot();
             Assert.True(File.Exists(@$"{path}/.gitignore"));
         }
 
@@ -49,7 +43,7 @@ namespace XUnitPattern
         [Fact]
         public async Task HasEditorconfig()
         {
-            var path = await Utils.GetRepositoryRoot();
+            var path = await VersioningUtils.GetRepositoryRoot();
             Assert.True(File.Exists(@$"{path}/.editorconfig"));
         }
 

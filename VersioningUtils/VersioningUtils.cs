@@ -6,17 +6,16 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Text;
 using System.Threading;
-using Xunit.Abstractions;
 
-namespace XUnitPattern
+namespace Versioning.Utlis
 {
-    internal static class Utils
+    class VersioningUtils
     {
         static private string cacheRepositoryRoot = "";
         static private SemaphoreSlim cacheRepositoryRootSemaphore = new SemaphoreSlim(1, 1);
 
         // リポジトリのルートディレクトリを得る
-        internal static async Task<string> GetRepositoryRoot()
+        public static async Task<string> GetRepositoryRoot()
         {
             await cacheRepositoryRootSemaphore.WaitAsync();
             try
@@ -142,7 +141,7 @@ namespace XUnitPattern
 
         // バージョン管理されたファイルの一覧をフルパスで返す
         // svn はディレクトリをバージョン管理できるが、ディレクトリのパスは戻り値に含めない.
-        internal static async Task<string[]> GetVersionedFiles()
+        public static async Task<string[]> GetVersionedFiles()
         {
             await cacheVersionnedFilesSemaphore.WaitAsync();
             try
@@ -218,18 +217,10 @@ namespace XUnitPattern
         }
 
         // バージョン管理されたファイルで、指定の拡張子のファイルの一覧をフルパスで返す
-        internal static async Task<string[]> GetVersionedFiles(string[] exts)
+        public static async Task<string[]> GetVersionedFiles(string[] exts)
         {
             var list = await GetVersionedFiles();
             return list.Where(v => exts.Contains(Path.GetExtension(v))).ToArray();
         }
-
-        // 拡張子のまとめ
-        internal static string[] cppExts = new string[] { ".h", ".hpp", ".c", ".cpp" };
-        internal static string[] csExts = new string[] { ".cs" };
-        internal static string[] jstsExts = new string[] { ".js", ".ts", ".jsx", ".tsx" };
-        internal static string[] webExts = jstsExts.Union(new string[] { ".htm", ".html", ".css" }).ToArray();
-        internal static string[] generalExts = new string[] {".md", ".txt", ".xml"};
-        internal static string[] textExts = cppExts.Union(cppExts).Union(csExts).Union(webExts).Union(generalExts).ToArray();
     }
 }

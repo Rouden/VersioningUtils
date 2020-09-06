@@ -8,8 +8,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Text;
+using Versioning.Utlis;
 
-namespace XUnitPattern
+namespace VersioningUtilsSample
 {
     public class TypoChecker
     {
@@ -31,7 +32,7 @@ namespace XUnitPattern
             typoDictionary.Add(new Regex("auguast", RegexOptions.IgnoreCase), "august");
 
             var paths = new List<string>();
-            foreach (var path in await Utils.GetVersionedFiles(Utils.textExts))
+            foreach (var path in await VersioningUtils.GetVersionedFiles(UtilsChecker.textExts))
             {
 
                 // 例外

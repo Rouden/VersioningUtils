@@ -7,8 +7,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Text;
+using Versioning.Utlis;
 
-namespace XUnitPattern
+namespace VersioningUtilsSample
 {
     public class DoctypeChecker
     {
@@ -22,7 +23,7 @@ namespace XUnitPattern
         [Fact]
         public async Task UseHtml5Doctype()
         {
-            var files = await Utils.GetVersionedFiles(new string[] { ".htm", ".html" });
+            var files = await VersioningUtils.GetVersionedFiles(new string[] { ".htm", ".html" });
             var reg = new Regex(@"^<!DOCTYPE html>", RegexOptions.IgnoreCase);
             var failedList = new List<string>();
             foreach (var path in files)

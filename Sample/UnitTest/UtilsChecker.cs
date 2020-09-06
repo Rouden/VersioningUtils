@@ -4,9 +4,10 @@ using System.IO;
 using Xunit;
 using Xunit.Abstractions;
 using System.Threading.Tasks;
+using Versioning.Utlis;
 
-// このファイルは XUnitPattern が内部で利用する関数の動作確認用です。
-namespace XUnitPattern
+// このファイルは VersioningUtils が内部で利用する関数の動作確認用です。
+namespace VersioningUtilsSample
 {
     public class UtilsChecker
     {
@@ -20,7 +21,7 @@ namespace XUnitPattern
         [Fact]
         public async Task GetRepositoryRootChecker()
         {
-            var path = await Utils.GetRepositoryRoot();
+            var path = await VersioningUtils.GetRepositoryRoot();
             output.WriteLine(@$"path = {path}");
 
             // パスが正しければ README.md と .gitignore が存在するはず
@@ -32,7 +33,7 @@ namespace XUnitPattern
         [Fact]
         public async Task GetVersionedFilesChecker()
         {
-            var paths = await Utils.GetVersionedFiles();
+            var paths = await VersioningUtils.GetVersionedFiles();
             output.WriteLine(String.Join("\n", paths));
 
             foreach(var path in paths)
@@ -47,7 +48,7 @@ namespace XUnitPattern
         [Fact]
         public async Task GetVersionedFilesChecker2()
         {
-            var paths = await Utils.GetVersionedFiles(new string[] { ".md" });
+            var paths = await VersioningUtils.GetVersionedFiles(new string[] { ".md" });
 
             output.WriteLine(String.Join("\n", paths));
 
@@ -59,5 +60,13 @@ namespace XUnitPattern
             Assert.True(1 <= paths.Where(text => text.EndsWith("README.md")).Count(), "README.md not found.");
             Assert.True(0 == paths.Where(text => text.EndsWith(".gitignore")).Count(), "extension is not filtered detected.");
         }
+
+        // 拡張子のまとめ
+        internal static string[] cppExts = new string[] { ".h", ".hpp", ".c", ".cpp" };
+        internal static string[] csExts = new string[] { ".cs" };
+        internal static string[] jstsExts = new string[] { ".js", ".ts", ".jsx", ".tsx" };
+        internal static string[] webExts = jstsExts.Union(new string[] { ".htm", ".html", ".css" }).ToArray();
+        internal static string[] generalExts = new string[] { ".md", ".txt", ".xml" };
+        internal static string[] textExts = cppExts.Union(cppExts).Union(csExts).Union(webExts).Union(generalExts).ToArray();
     }
 }
