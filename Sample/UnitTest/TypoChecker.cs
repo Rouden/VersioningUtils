@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
 using Xunit;
 using Xunit.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-using System.Text;
-using Versioning.Utlis;
+using Versioning.Utils;
 
 namespace VersioningUtilsSample
 {
@@ -29,7 +27,7 @@ namespace VersioningUtilsSample
             // Add(誤, 正) で追加していく
             var typoDictionary = new Dictionary<Regex, string>();
             var failedList = new List<string>();
-            typoDictionary.Add(new Regex("auguast", RegexOptions.IgnoreCase), "august");
+            typoDictionary.Add(new Regex("Utli", RegexOptions.IgnoreCase), "Util");
 
             var paths = new List<string>();
             foreach (var path in await VersioningUtils.GetVersionedFiles(UtilsChecker.textExts))

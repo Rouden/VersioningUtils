@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Text;
-using Versioning.Utlis;
+using Versioning.Utils;
 
 namespace VersioningUtilsSample
 {

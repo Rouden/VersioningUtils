@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Text;
 using System.Threading;
 
-namespace Versioning.Utlis
+namespace Versioning.Utils
 {
     public static class VersioningUtils
     {
