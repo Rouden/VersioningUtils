@@ -2,7 +2,7 @@
 using Xunit;
 using Xunit.Abstractions;
 using System.Threading.Tasks;
-using Versioning.Utlis;
+using Versioning.Utils;
 
 // ルートにあるはずのファイルを確認する
 namespace VersioningUtilsSample

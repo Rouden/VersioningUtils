@@ -4,7 +4,7 @@ using System.IO;
 using Xunit;
 using Xunit.Abstractions;
 using System.Threading.Tasks;
-using Versioning.Utlis;
+using Versioning.Utils;
 
 // このファイルは VersioningUtils が内部で利用する関数の動作確認用です。
 namespace VersioningUtilsSample
