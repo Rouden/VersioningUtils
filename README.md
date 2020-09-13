@@ -1,8 +1,6 @@
 ﻿
 ![CI](https://github.com/Rouden/XUnitPattern/workflows/CI/badge.svg)
 
-> Note: このファイルは書きかけです。
-
 # VersioningUtils
 
 バージョン管理下にあるファイルの一覧を取得します。
@@ -10,10 +8,25 @@
 単体テストで、リポジトリ内のファイルを全チェックするときに便利です。
 
 ## 使い方
-> todo: NuGet から取り込んで関数を実行するところまで
+1. NuGet パッケージを追加する
+```
+dotnet add package Versioning.Utils
+```
+2. ファイル一覧を取得する
+```CSharp
+string[] paths = await VersioningUtils.GetVersionedFiles();
+Console.WriteLine(String.Join("\n", paths));
+/*
+C:/projects/VersioningUtils/.editorconfig
+C:/projects/VersioningUtils/.github/workflows/ci.yml
+C:/projects/VersioningUtils/.gitignore
+C:/projects/VersioningUtils/LICENSE.txt
+...
+*/
+```
 
 ## 動作環境
-* .NET Core 3.x が動作する環境
+* .NET Core 3.0 以降 (.NET Standard 2.1)
     * 動作確認済み
         * Windows 10 + Visual Studio 2019
         * Windows 10 + VS Code
