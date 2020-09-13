@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace Versioning.Utlis
 {
-    class VersioningUtils
+    public static class VersioningUtils
     {
         static private string cacheRepositoryRoot = "";
         static private SemaphoreSlim cacheRepositoryRootSemaphore = new SemaphoreSlim(1, 1);
