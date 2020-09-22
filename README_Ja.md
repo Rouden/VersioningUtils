@@ -36,5 +36,5 @@ C:/projects/VersioningUtils/LICENSE.txt
         * git コマンドが利用可能な環境、もしくは [GitHub Desktop](https://desktop.github.com/) のみインストールされた環境
     * svn
         * svn コマンドが利用可能な環境
-            * TortoiseSVN では、インストールオプションで "command line client tools" が選択されているときに相当
+            * [TortoiseSVN](https://tortoisesvn.net/) では、インストールオプションで "command line client tools" が選択されているときに相当
         * svnのみ、パスが非ASCII文字を含んでいると対象になりません

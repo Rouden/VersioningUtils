@@ -5,7 +5,7 @@
 
 List version controlled file paths. Git and SVN are supported.
 
-Unit test is the biggest target of this project. 
+Unit tests are the main target of this project. 
 
 ## Usage
 1. Add NuGet package
@@ -36,5 +36,5 @@ C:/projects/VersioningUtils/LICENSE.txt
         * git command is available or [GitHub Desktop](https://desktop.github.com/) is installed
     * svn
         * svn command is available
-            * TortoiseSVN requires an installation option "command line client tools".
-        * In svn mode, VersioningUtils ignores files if path has non ASCII letters.
+            * [TortoiseSVN](https://tortoisesvn.net/) requires an installation option "command line client tools".
+        * In svn mode, this package ignores files if path has non ASCII letters.
