@@ -13,4 +13,6 @@ jobs:
       with:
         dotnet-version: 3.1.201
     - run: dotnet test
-      working-directory: ./Sample/UnitTest
+      working-directory: ./Sample/UnitTest_netcoreapp3.1
+    - run: dotnet test
+      working-directory: ./Sample/UnitTest_net5.0
