@@ -33,8 +33,12 @@ C:/projects/VersioningUtils/LICENSE.txt
         * GitHub actions (Ubuntu-latest)  
 * Supported version control sysytem environment
     * git
-        * git command is available or [GitHub Desktop](https://desktop.github.com/) is installed
+        * git command
+        * [GitHub Desktop](https://desktop.github.com/)
     * svn
-        * svn command is available
+        * svn command
             * [TortoiseSVN](https://tortoisesvn.net/) requires an installation option "command line client tools".
-        * In svn mode, this package ignores files if path has non ASCII letters.
+* Limitation
+    * With svn
+        * This package ignores files where the path has non ASCII letters.
+        * This package ignores missing files in your local workspace.

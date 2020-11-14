@@ -33,8 +33,12 @@ C:/projects/VersioningUtils/LICENSE.txt
         * GitHub actions (Ubuntu-latest)  
 * 対応バージョン管理システム
     * git
-        * git コマンドが利用可能な環境、もしくは [GitHub Desktop](https://desktop.github.com/) のみインストールされた環境
+        * git コマンドが利用可能な環境
+        * [GitHub Desktop](https://desktop.github.com/) がインストールされた環境
     * svn
         * svn コマンドが利用可能な環境
             * [TortoiseSVN](https://tortoisesvn.net/) では、インストールオプションで "command line client tools" が選択されているときに相当
-        * svnのみ、パスが非ASCII文字を含んでいると対象になりません
+* 制限
+    * svn
+        * 非ASCII文字を含むパスは無視されます
+        * 作業コピーのファイルが存在しない場合は無視されます
