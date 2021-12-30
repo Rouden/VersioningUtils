@@ -15,7 +15,12 @@ jobs:
     - uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '5.0.x'
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'
     - run: dotnet test
       working-directory: ./Sample/UnitTest_netcoreapp3.1
     - run: dotnet test
       working-directory: ./Sample/UnitTest_net5.0
+    - run: dotnet test
+      working-directory: ./Sample/UnitTest_net6.0
