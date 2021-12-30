@@ -11,6 +11,7 @@
     <Compile Include="..\UnitTest_netcoreapp3.1\CSharp\AsyncVoidChecker.cs" Link="CSharp\AsyncVoidChecker.cs" />
     <Compile Include="..\UnitTest_netcoreapp3.1\CSharp\DefaultDesktopOnlyChecker.cs" Link="CSharp\DefaultDesktopOnlyChecker.cs" />
     <Compile Include="..\UnitTest_netcoreapp3.1\TextEncodeChecker.cs" Link="TextEncodeChecker.cs" />
+    <Compile Include="..\UnitTest_netcoreapp3.1\TrojanLetterChecker.cs" Link="TrojanLetterChecker.cs" />
     <Compile Include="..\UnitTest_netcoreapp3.1\TypoChecker.cs" Link="TypoChecker.cs" />
     <Compile Include="..\UnitTest_netcoreapp3.1\UtilsChecker.cs" Link="UtilsChecker.cs" />
     <Compile Include="..\UnitTest_netcoreapp3.1\Web\BindChecker.cs" Link="Web\BindChecker.cs" />
@@ -24,7 +25,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
-    <PackageReference Include="Versioning.Utils" Version="1.1.1" />
+    <PackageReference Include="Versioning.Utils" Version="1.2.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

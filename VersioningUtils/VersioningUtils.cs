@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Text;
 using System.Threading;
+using System.Globalization;
 
 namespace Versioning.Utils
 {
@@ -211,7 +212,7 @@ namespace Versioning.Utils
             var files = output.Split("\r\n");
             return files
                 .Select(v => $"{root}/{v}")
-                .Where(v=>!v.EndsWith("/"))
+                .Where(v => !v.EndsWith("/"))
                 .Where(v => File.Exists(v)) // 非ASCII 文字を含むパスを取り除く
                 .ToArray();
         }
@@ -221,6 +222,35 @@ namespace Versioning.Utils
         {
             var list = await GetVersionedFiles();
             return list.Where(v => exts.Contains(Path.GetExtension(v))).ToArray();
+        }
+
+        // 制御文字を利用した悪意のあるコードが StackOverflow 等にある場合それらをコピペするのは危険である. この関数は制御文字を含むファイルの一覧を返す.
+        public static async Task<string[]> FindTrojanLetters(string[] exts)
+        {
+            return await FindTrojanLetters(exts, new UnicodeCategory[] { UnicodeCategory.Control, UnicodeCategory.OtherNotAssigned, UnicodeCategory.Format, UnicodeCategory.Surrogate });
+        }
+
+        // 制御文字を利用した悪意のあるコードが StackOverflow 等にある場合それらをコピペするのは危険である. この関数は制御文字を含むファイルの一覧を返す.
+        public static async Task<string[]> FindTrojanLetters(string[] exts, UnicodeCategory[] dangerUnicodeCategories)
+        {
+            var list = await GetVersionedFiles(exts);
+            list = list.Where(path =>
+            {
+                var text = File.ReadAllText(path);
+                for (var i = 0; i < text.Length; i++)
+                {
+                    var c = text[i];
+                    var category = Char.GetUnicodeCategory(c);
+                    var isPrintable = Char.IsWhiteSpace(c) || !dangerUnicodeCategories.Contains(category);
+
+                    if (!isPrintable)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }).ToArray();
+            return list;
         }
     }
 }
