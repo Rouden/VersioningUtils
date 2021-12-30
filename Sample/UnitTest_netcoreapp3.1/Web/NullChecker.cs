@@ -29,7 +29,7 @@ namespace VersioningUtilsSample
             foreach (var path in files)
             {
                 // 例外
-                if (path.EndsWith("serviceWorker.ts")) continue; // React が生成したファイル
+                // if (path.EndsWith("reportWebVitals.ts")) continue; // React が生成したファイル
 
                 var text = File.ReadAllText(path, Encoding.UTF8);
                 if (reg.IsMatch(text))

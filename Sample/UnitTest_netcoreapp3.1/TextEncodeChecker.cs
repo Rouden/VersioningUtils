@@ -28,7 +28,7 @@ namespace VersioningUtilsSample
             foreach (var path in files)
             {
                 // 例外
-                // if (path.Contains("something")) continue;
+                if (path.Contains("/reactapp/src")) continue; // react-script 経由で確認されるので無視する.
 
                 byte[] bin = File.ReadAllBytes(path);
                 if(bin[0] == 0xEF && bin[1] == 0xBB && bin[2] == 0xBF)
