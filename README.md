@@ -42,3 +42,15 @@ C:/projects/VersioningUtils/LICENSE.txt
     * With svn
         * This package ignores files where the path has non ASCII letters.
         * This package ignores missing files in your local workspace.
+
+## Other Utilities
+
+* `VersioningUtils.FindTrojanLetters(...)`
+    * This utility function detects [Unicode characters that your IDE does not show you](https://dev.to/dotnetsafer/rip-copy-and-paste-from-stackoverflow-trojan-source-solution-4p8f).
+
+    ```csharp
+    // Sample unit test code:
+    var exts = new string[]{".cs"};
+    var list = await VersioningUtils.FindTrojanLetters(exts);
+    Assert.True(0 == list.Count(), $"Trojan source(s) detected.\n{String.Join("\n----\n", list)}");
+    ```

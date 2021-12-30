@@ -42,3 +42,15 @@ C:/projects/VersioningUtils/LICENSE.txt
     * svn
         * 非ASCII文字を含むパスは無視されます
         * 作業コピーのファイルが存在しない場合は無視されます
+
+## おまけ関数
+
+* `VersioningUtils.FindTrojanLetters(...)`
+    * この関数は [Unicodeの制御文字を利用した悪意のあるソースコード](https://qiita.com/rana_kualu/items/3b03961deb003a8a2f1d) を検出します.
+
+    ```csharp
+    // 以下は、単体テストの実装例です
+    var exts = new string[]{".cs"};
+    var list = await VersioningUtils.FindTrojanLetters(exts);
+    Assert.True(0 == list.Count(), $"不自然な制御文字を含むソースコードが見つかりました。\n{String.Join("\n----\n", list)}");
+    ```
