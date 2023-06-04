@@ -55,6 +55,7 @@ namespace Versioning.Utils
             psi.WorkingDirectory = workingDirectory;
             psi.UseShellExecute = false;
             psi.RedirectStandardOutput = true;
+            psi.RedirectStandardError = true;
             using var p = Process.Start(psi);
             string output = await p.StandardOutput.ReadToEndAsync();
             p.WaitForExit();
@@ -82,6 +83,7 @@ namespace Versioning.Utils
                 psi.WorkingDirectory = workingDirectory;
                 psi.UseShellExecute = false;
                 psi.RedirectStandardOutput = true;
+                psi.RedirectStandardError = true;
                 using var p = Process.Start(psi);
                 string output = await p.StandardOutput.ReadToEndAsync();
                 p.WaitForExit();
@@ -104,7 +106,11 @@ namespace Versioning.Utils
         {
             try
             {
-                using var p = Process.Start("git", "--version");
+                var psi = new ProcessStartInfo("git", "--version");
+                psi.UseShellExecute = false;
+                psi.RedirectStandardOutput = true;
+                psi.RedirectStandardError = true;
+                using var p = Process.Start(psi);
                 p.WaitForExit();
                 return "git";
             }
@@ -124,7 +130,11 @@ namespace Versioning.Utils
         {
             try
             {
-                using var p = Process.Start("svn", "--version");
+                var psi = new ProcessStartInfo("svn", "--version");
+                psi.UseShellExecute = false;
+                psi.RedirectStandardOutput = true;
+                psi.RedirectStandardError = true;
+                using var p = Process.Start(psi);
                 p.WaitForExit();
                 return "svn";
             }
@@ -182,6 +192,7 @@ namespace Versioning.Utils
             psi.WorkingDirectory = root;
             psi.UseShellExecute = false;
             psi.RedirectStandardOutput = true;
+            psi.RedirectStandardError = true;
             using var p = Process.Start(psi);
             string output = await p.StandardOutput.ReadToEndAsync();
             p.WaitForExit();
@@ -203,6 +214,7 @@ namespace Versioning.Utils
             psi.WorkingDirectory = root;
             psi.UseShellExecute = false;
             psi.RedirectStandardOutput = true;
+            psi.RedirectStandardError = true;
             using var p = Process.Start(psi);
             string output = await p.StandardOutput.ReadToEndAsync();
             p.WaitForExit();
