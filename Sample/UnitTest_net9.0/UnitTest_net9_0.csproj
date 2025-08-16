@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\UnitTest_netcoreapp3.1\BasicFilesChecker.cs" Link="BasicFilesChecker.cs" />
+    <Compile Include="..\UnitTest_netcoreapp3.1\CSharp\AsyncVoidChecker.cs" Link="CSharp\AsyncVoidChecker.cs" />
+    <Compile Include="..\UnitTest_netcoreapp3.1\CSharp\DefaultDesktopOnlyChecker.cs" Link="CSharp\DefaultDesktopOnlyChecker.cs" />
+    <Compile Include="..\UnitTest_netcoreapp3.1\TextEncodeChecker.cs" Link="TextEncodeChecker.cs" />
+    <Compile Include="..\UnitTest_netcoreapp3.1\TrojanLetterChecker.cs" Link="TrojanLetterChecker.cs" />
+    <Compile Include="..\UnitTest_netcoreapp3.1\TypoChecker.cs" Link="TypoChecker.cs" />
+    <Compile Include="..\UnitTest_netcoreapp3.1\UtilsChecker.cs" Link="UtilsChecker.cs" />
+    <Compile Include="..\UnitTest_netcoreapp3.1\Web\BindChecker.cs" Link="Web\BindChecker.cs" />
+    <Compile Include="..\UnitTest_netcoreapp3.1\Web\DecodeURIChecker.cs" Link="Web\DecodeURIChecker.cs" />
+    <Compile Include="..\UnitTest_netcoreapp3.1\Web\DoctypeChecker.cs" Link="Web\DoctypeChecker.cs" />
+    <Compile Include="..\UnitTest_netcoreapp3.1\Web\NullChecker.cs" Link="Web\NullChecker.cs" />
+    <Compile Include="..\UnitTest_netcoreapp3.1\Web\NumberChecker.cs" Link="Web\NumberChecker.cs" />
+    <Compile Include="..\UnitTest_netcoreapp3.1\Web\ThenChecker.cs" Link="Web\ThenChecker.cs" />
+    <Compile Include="..\UnitTest_netcoreapp3.1\Web\VarChecker.cs" Link="Web\VarChecker.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.1" />
+    <PackageReference Include="Versioning.Utils" Version="1.3.0" />
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="6.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Web\" />
+    <Folder Include="CSharp\" />
+  </ItemGroup>
+
+</Project>
