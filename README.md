@@ -25,23 +25,22 @@ C:/projects/VersioningUtils/LICENSE.txt
 */
 ```
 
+## Supported version control sysytem
+* git
+* svn
+ 
 ## Requirements
 * .NET Core 3.0 or later (.NET Standard 2.1)
-    * Tested environment
-        * Windows 10 + Visual Studio 2019
-        * Windows 10 + VS Code
-        * GitHub actions (Ubuntu-latest)  
-* Supported version control sysytem environment
-    * git
-        * git command
-        * [GitHub Desktop](https://desktop.github.com/)
-    * svn
-        * svn command
-            * [TortoiseSVN](https://tortoisesvn.net/) requires an installation option "command line client tools".
-* Limitation
-    * With svn
-        * This package ignores files where the path has non ASCII letters.
-        * This package ignores missing files in your local workspace.
+* Version control sysytem client
+    * git command if the target repo is git
+    * svn command if the target repo is svn
+* Limitation with svn
+    * This package ignores files where the path has non ASCII letters.
+    * This package ignores missing files in your local workspace.
+ 
+## Tips
+* [GitHub Desktop](https://desktop.github.com/) contains git client.
+* [TortoiseSVN](https://tortoisesvn.net/) requires an installation option "command line client tools".
 
 ## Other Utilities
 

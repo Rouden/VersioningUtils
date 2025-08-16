@@ -25,23 +25,22 @@ C:/projects/VersioningUtils/LICENSE.txt
 */
 ```
 
+## サポートしているバージョン管理システム
+* git
+* svn
+
 ## 動作環境
 * .NET Core 3.0 以降 (.NET Standard 2.1)
-    * 動作確認済み
-        * Windows 10 + Visual Studio 2019
-        * Windows 10 + VS Code
-        * GitHub actions (Ubuntu-latest)  
 * 対応バージョン管理システム
-    * git
-        * git コマンドが利用可能な環境
-        * [GitHub Desktop](https://desktop.github.com/) がインストールされた環境
-    * svn
-        * svn コマンドが利用可能な環境
-            * [TortoiseSVN](https://tortoisesvn.net/) では、インストールオプションで "command line client tools" が選択されているときに相当
-* 制限
-    * svn
-        * 非ASCII文字を含むパスは無視されます
-        * 作業コピーのファイルが存在しない場合は無視されます
+    * git コマンドが利用可能な環境
+    * svn コマンドが利用可能な環境
+* svn 利用時の制限事項
+    * 非ASCII文字を含むパスは無視されます
+    * 作業コピーのファイルが存在しない場合は無視されます
+
+## Tips
+* [GitHub Desktop](https://desktop.github.com/) に同梱される git クライアントに対応
+* [TortoiseSVN](https://tortoisesvn.net/) では、インストールオプションで "command line client tools" が選択されているときに svn コマンドが利用可能になります。
 
 ## おまけ関数
 
