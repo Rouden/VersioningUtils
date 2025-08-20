@@ -25,13 +25,13 @@ C:/projects/VersioningUtils/LICENSE.txt
 */
 ```
 
-## Supported version control sysytem
+## Supported version control system
 * git
 * svn
  
 ## Requirements
 * .NET Core 3.0 or later (.NET Standard 2.1)
-* Version control sysytem client
+* Version control system client
     * git command if the target repo is git
     * svn command if the target repo is svn
 * Limitation with svn
