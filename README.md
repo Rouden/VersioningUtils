@@ -42,6 +42,9 @@ C:/projects/VersioningUtils/LICENSE.txt
 * [GitHub Desktop](https://desktop.github.com/) contains git client.
 * [TortoiseSVN](https://tortoisesvn.net/) requires an installation option "command line client tools".
 
+## Documents
+* [develop.md](docs/develop.md): A development workflow of the package.
+
 ## Other Utilities
 
 * `VersioningUtils.FindTrojanLetters(...)`
