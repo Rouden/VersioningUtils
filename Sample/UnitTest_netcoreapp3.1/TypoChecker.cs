@@ -36,13 +36,13 @@ namespace VersioningUtilsSample
             var paths = new List<string>();
             foreach (var path in await VersioningUtils.GetVersionedFiles(UtilsChecker.textExts))
             {
-
-                // 例外
-                if (path.EndsWith("TypoChecker.cs")) continue; // このファイル
-
                 var text = File.ReadAllText(path);
                 foreach (var pair in typoDictionary)
                 {
+                    // 例外
+                    if (path.EndsWith("TypoChecker.cs")) continue; // このファイル
+                    if (pair.Value == "Util" && path.EndsWith("CHANGELOG.md")) continue; // ドキュメント内に昔の typo についての記載がある
+
                     var match = pair.Key.Match(text);
                     if (match.Success)
                     {
