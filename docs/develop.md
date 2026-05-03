@@ -22,3 +22,6 @@
     1. デバッグが終わったら VersioningUtils のバージョン番号と、単体テストのパッケージ参照の設定を元に戻す
 
 ## パッケージをリリースする
+* Web サイトの nuget.org にアクセスし、ログインしてアップロードする。
+    * 参考: https://dev.classmethod.jp/articles/publish-nuget-package/
+

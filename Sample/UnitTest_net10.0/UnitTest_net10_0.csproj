@@ -29,8 +29,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.5.1" />
-    <!--PackageReference Include="Versioning.Utils" Version="1.3.0" /-->
-    <ProjectReference Include="../../VersioningUtils/VersioningUtils.csproj" />
+    <PackageReference Include="Versioning.Utils" Version="1.4.0" />
+    <!--ProjectReference Include="../../VersioningUtils/VersioningUtils.csproj" /-->
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
