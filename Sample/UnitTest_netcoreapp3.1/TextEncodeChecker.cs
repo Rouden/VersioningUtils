@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Xunit;
-using Xunit.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
 using Versioning.Utils;
+using Xunit;
+#if NET8_0_OR_GREATER
+#else
+using Xunit.Abstractions;
+#endif
+
 
 namespace VersioningUtilsSample
 {
@@ -31,7 +35,7 @@ namespace VersioningUtilsSample
                 if (path.Contains("/reactapp/src")) continue; // react-script 経由で確認されるので無視する.
 
                 byte[] bin = File.ReadAllBytes(path);
-                if(bin[0] == 0xEF && bin[1] == 0xBB && bin[2] == 0xBF)
+                if (bin[0] == 0xEF && bin[1] == 0xBB && bin[2] == 0xBF)
                 {
                     // ok
                 }

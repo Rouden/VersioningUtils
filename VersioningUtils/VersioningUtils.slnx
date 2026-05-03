@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="VersioningUtils.csproj" />
+  <Project Path="../Sample/UnitTest_netcoreapp3.1/UnitTest_netcoreapp3_1.csproj" />
+  <Project Path="../Sample/UnitTest_net5.0/UnitTest_net5_0.csproj" />
+  <Project Path="../Sample/UnitTest_net6.0/UnitTest_net6_0.csproj" />
+  <Project Path="../Sample/UnitTest_net7.0/UnitTest_net7_0.csproj" />
+  <Project Path="../Sample/UnitTest_net8.0/UnitTest_net8_0.csproj" />
+  <Project Path="../Sample/UnitTest_net9.0/UnitTest_net9_0.csproj" />
+  <Project Path="../Sample/UnitTest_net10.0/UnitTest_net10_0.csproj" />
+</Solution>

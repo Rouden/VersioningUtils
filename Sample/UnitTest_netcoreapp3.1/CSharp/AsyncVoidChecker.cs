@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Xunit;
-using Xunit.Abstractions;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Text.RegularExpressions;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Versioning.Utils;
+using Xunit;
+#if NET8_0_OR_GREATER
+#else
+using Xunit.Abstractions;
+#endif
+
 
 namespace VersioningUtilsSample
 {

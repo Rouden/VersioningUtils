@@ -1,10 +1,14 @@
 ﻿using System;
-using System.Linq;
 using System.IO;
-using Xunit;
-using Xunit.Abstractions;
+using System.Linq;
 using System.Threading.Tasks;
 using Versioning.Utils;
+using Xunit;
+#if NET8_0_OR_GREATER
+#else
+using Xunit.Abstractions;
+#endif
+
 
 // このファイルは VersioningUtils が内部で利用する関数の動作確認用です。
 namespace VersioningUtilsSample
@@ -36,7 +40,7 @@ namespace VersioningUtilsSample
             var paths = await VersioningUtils.GetVersionedFiles();
             output.WriteLine(String.Join("\n", paths));
 
-            foreach(var path in paths)
+            foreach (var path in paths)
             {
                 Assert.True(File.Exists(path), $"Listed file does not exist.\npath = {path}");
             }

@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Xunit;
-using Xunit.Abstractions;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Versioning.Utils;
+using Xunit;
+#if NET8_0_OR_GREATER
+#else
+using Xunit.Abstractions;
+#endif
+
 
 namespace VersioningUtilsSample
 {
@@ -32,13 +36,13 @@ namespace VersioningUtilsSample
             var paths = new List<string>();
             foreach (var path in await VersioningUtils.GetVersionedFiles(UtilsChecker.textExts))
             {
-
-                // 例外
-                if (path.EndsWith("TypoChecker.cs")) continue; // このファイル
-
                 var text = File.ReadAllText(path);
                 foreach (var pair in typoDictionary)
                 {
+                    // 例外
+                    if (path.EndsWith("TypoChecker.cs")) continue; // このファイル
+                    if (pair.Value == "Util" && path.EndsWith("CHANGELOG.md")) continue; // ドキュメント内に昔の typo についての記載がある
+
                     var match = pair.Key.Match(text);
                     if (match.Success)
                     {

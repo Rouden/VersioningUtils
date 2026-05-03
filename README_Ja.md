@@ -42,6 +42,9 @@ C:/projects/VersioningUtils/LICENSE.txt
 * [GitHub Desktop](https://desktop.github.com/) に同梱される git クライアントに対応
 * [TortoiseSVN](https://tortoisesvn.net/) では、インストールオプションで "command line client tools" が選択されているときに svn コマンドが利用可能になります。
 
+## ドキュメント
+* [develop.md](docs/develop.md): 本パッケージ自体の開発方法です。
+
 ## おまけ関数
 
 * `VersioningUtils.FindTrojanLetters(...)`

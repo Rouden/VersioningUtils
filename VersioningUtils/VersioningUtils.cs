@@ -1,12 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.IO;
-using System.Reflection;
+﻿using Microsoft.Win32;
+using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
-using System.Globalization;
+using System.Threading.Tasks;
 
 namespace Versioning.Utils
 {
@@ -106,6 +107,7 @@ namespace Versioning.Utils
         {
             try
             {
+                // パスが通っていればそれを利用する
                 var psi = new ProcessStartInfo("git", "--version");
                 psi.UseShellExecute = false;
                 psi.RedirectStandardOutput = true;
@@ -116,15 +118,46 @@ namespace Versioning.Utils
             }
             catch
             {
-                string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                foreach (var dir in Directory.GetDirectories($@"{localAppData}/GitHub", "PortableGit_*"))
-                {
-                    return $@"{dir}/cmd/git.exe";
-                }
-                return null;
+                // Windows でない場合はそれ以上は探索しない
+                if (Environment.OSVersion.Platform != PlatformID.Win32NT) return null;
+
+                return GetGitPathFromWindows();
+            }
+        }
+
+#if NET5_0_OR_GREATER
+        [SupportedOSPlatform("windows")]
+#endif
+        private static string? GetGitPathFromWindows()
+        {
+            // GitHub Desktop に配置されている git.exe を利用する
+            // * 現在の GitHub Desktop では以下のようなパスに git.exe が配置されているようである。
+            // * C:\Users\UserFoo\AppData\Local\GitHubDesktop\app-3.5.8\resources\app\git\cmd\git.exe
+            string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            var dirs = Directory.GetDirectories($@"{localAppData}/GitHubDesktop", "app-*");
+            foreach (var dir in dirs)
+            {
+                var path = $@"{dir}/resources/app/git/cmd/git.exe";
+                if (!File.Exists(path)) continue;
+                return path;
             }
 
+            // 上記の探索で GitHub Desktop が見つからない場合、Windows に登録されている GitHub Desktop のインストール情報からパスを探す
+            using var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall\GitHubDesktop");
+            if (key != null)
+            {
+                var dir = key.GetValue("InstallLocation") as string;
+                if (dir != null)
+                {
+                    foreach (var path in Directory.GetFiles(dir, "git.exe", SearchOption.AllDirectories))
+                    {
+                        return path;
+                    }
+                }
+            }
+            return null;
         }
+
 
         private static string? GetSvnPath()
         {
